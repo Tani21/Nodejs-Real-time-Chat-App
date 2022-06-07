@@ -1,25 +1,23 @@
-pipeline {
-    agent {
-        docker {
-            image 'node'
-            args '-p 3000:3000'
-        }
-    }
-    stages {
-        stage('Build') {
-            steps {
-               echo "build stage"
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'This is test stage'
-            }
-        }
-        stage('Deliver') { 
-            steps {
-                echo "deliver stage"
-            }
-        }
+pipeline{
+    agent any
+    stages{
+      stage('Build'){
+          steps{
+                echo 'Build Stage'
+                sh 'npm install'
+          }
+      }
+      stage('Test'){
+          steps{
+              echo 'Test Stage'
+              sh 'npm start'
+          }         
+      }
+        stage('Deploy'){
+          steps{
+         echo 'Deploy stage'
+          }         
+      }
+        
     }
 }
