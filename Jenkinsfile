@@ -1,17 +1,27 @@
 pipeline{
     agent any
-    stages{
-      stage('Build'){
-          steps{
-                echo 'Build Stage'
-                sh 'npm install'
-          }
+    
+    tools {nodejs "node"}
+    
+    stages {
+        
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/gustavoapolinario/node-todo-frontend'
       }
-      stage('Test'){
-          steps{
-              echo 'Test Stage'
-          }         
+    }
+        
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
       }
+    }
+     
+    stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+    }      
         stage('Deploy'){
           steps{
          echo 'Deploy stage'
@@ -20,3 +30,5 @@ pipeline{
         
     }
 }
+
+
